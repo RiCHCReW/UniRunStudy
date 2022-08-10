@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
   public AudioClip deathClip; // 사망시 재생할 오디오 클립
   public float jumpForce = 700f; // 점프 힘
+  public float m_fRepositionSpeed = 2f; // 제자리로 돌아가는 속도
 
   private int jumpCount = 0; // 누적 점프 횟수
   private bool isGrounded = false; // 바닥에 닿았는지 나타냄
@@ -43,6 +44,20 @@ public class PlayerController : MonoBehaviour
 
     animator.SetBool("Grounded", isGrounded);
     // 사용자 입력을 감지하고 점프하는 처리
+
+    float fXDelta = transform.position.x - (-6);
+    if (Mathf.Abs(fXDelta) > Mathf.Epsilon)
+    {
+      Vector3 v3Position = transform.position;
+      if (Mathf.Abs(fXDelta) < 0.05)
+      {
+        v3Position.x = -6;
+        transform.position = v3Position;
+      }
+      else if (fXDelta > 0) transform.Translate(Vector3.left * m_fRepositionSpeed * Time.deltaTime);
+      else transform.Translate(Vector3.right * m_fRepositionSpeed * Time.deltaTime);
+      //transform.position = v3Position;
+    }
   }
 
   private void Die()
