@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
   {
     if (isDead == true) return;
 
-    if (Input.GetMouseButtonDown(0) == true)// && jumpCount < 2)
+    if (Input.GetMouseButtonDown(0) == true && jumpCount < 2)
     {
       jumpCount++;
       playerRigidbody.velocity = Vector2.zero;
